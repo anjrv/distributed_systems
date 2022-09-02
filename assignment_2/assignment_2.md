@@ -16,14 +16,14 @@ header-includes: |
 
 ## Describe very briefly the system architecture of the Domain Name System (DNS) with a focus on:
 
-* What client/server roles do occur;
-* where is replication,
-* partitioning,
-* or caching used!
+* **What client/server roles do occur;**
+* **where is replication,**
+* **partitioning,**
+* **or caching used!**
 
 DNS is used to convert domain names into actual internet addresses. It is implemented as a server process that can be run on devices anywhere in the internet - at least two such devices exist in each specific domain.
 
-For the individual domains we might partition them into smaller domains. In this case when a large contains multiple smaller domains it might be referred to as a forest.
+For the individual domains we might partition them into smaller domains. In this case when a large domain contains multiple smaller domains it might be referred to as a forest.
 
 For the servers in these domains we might see replication such that secondary servers replicate any changes that occur on a primary server. This kind of primary server would be the authoritative server on the network which is queried by resolver servers.
 
