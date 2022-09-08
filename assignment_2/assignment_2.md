@@ -14,19 +14,26 @@ header-includes: |
     \rhead{Distributed Systems, Assignment 2}
 ...
 
-## Describe very briefly the system architecture of the Domain Name System (DNS) with a focus on:
+## Describe very briefly the system architecture of the Domain Name System
 
-* **What client/server roles do occur;**
-* **where is replication,**
-* **partitioning,**
-* **or caching used!**
+DNS is used to convert domain names into actual internet addresses. It is implemented as a server process that can be run on devices anywhere in the internet. When someone enters a website address into a browser there are actually multiple servers that might be queried. These are:
 
-DNS is used to convert domain names into actual internet addresses. It is implemented as a server process that can be run on devices anywhere in the internet - at least two such devices exist in each specific domain.
+* **Resolver server:**
+  - Receives the initial request and does the grunt work in figuring out the actual address of the website
+* **Root server:**
+  - Receives the first request, this is what the resolver is directed to with the hidden period at the end of every website request. The root server will let the resolver server know the address of the top level domain server that stores the information about the requested site.
+* **Top level domain server:**
+  - These servers oversee the addresses for their domains, e.g. .com, .net or .is. This is the kind of server that will be queried next by the resolver server to obtain the location of the authoritative name server.
+* (Registrar):
+  - This middle step oversees updating the list of authoritative name servers a top level domain server should use.
+* **Authoritative name server:**
+  - This is the server queried to obtain the location, or IP address, of the initially sought after website.
 
-For the individual domains we might partition them into smaller domains. In this case when a large domain contains multiple smaller domains it might be referred to as a forest.
+\pagebreak
 
-For the servers in these domains we might see replication such that secondary servers replicate any changes that occur on a primary server. This kind of primary server would be the authoritative server on the network which is queried by resolver servers.
+As can be seen from the descriptions of the server roles in most of these interactions the resolver will act as a client for most of these interactions. This resolver server might also be the initial users own personal computer or, more likely, a server run by the internet service provider. Every step along the way this resolver server will cache all the results such that it does not have to go throughout this entire tree every time. The other servers listed initially may also cache a subset of this information for the same purpose.
 
-These servers are responsible for holding a partial map of their domain name tree and requests for the translation of domain names outside their portion of the tree by issuing requests to DNS servers in the relevant domains. The results of these requests would be where caching could be implemented so that future requests referring to the same domains can be resolved without referencing other servers. In fact DNS in general would not be functional without this kind of caching as querying root servers every time would cause a tremendous service access bottleneck.
+The structure of a domain namespace is effectively a tree, we have the root which delegates to top level domain servers for the aforementioned .com, .net, .is and other top level domains. But these top level domains would would also be partitioned further. Using the example from the video seen in class, i.e. example.com this would be a second level domain which could also have further sub domains like mail.example.com or simply www.example.com.
 
-The client role in all of this is described as any entity that queries for addresses from the domain.
+For all of these namespace zones we would often have a set of authoritative servers, one primary and one secondary, to ensure we have produce a backup replication of our records. It is also possible for an authoritative name server to be authoritative for more than one zone, e.g. when DNS services are provided by a third party such as an ISP. In reality there is more than just this kind of replication. We effectively replicate every step of our DNS name resolution by caching every step of the way by caching responses as mentioned earlier.
+
