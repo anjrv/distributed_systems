@@ -14,7 +14,7 @@ header-includes: |
     \rhead{Distributed Systems, Assignment 3}
 ...
 
-*NOTE: See p. 68*
+*NOTE: See p. 68, 83-89*
 
 ## Consider two communication services for use in asynchronous distributed systems: 
  
@@ -27,7 +27,11 @@ header-includes: |
 2. **the effect of the failures on the properties validity and integrity,**
 3. **whether the service is reliable or not.**
 
+Lost messages are omission failures, duplications and checksums are arbitrary failures.
 
+Neither have validity due to lost messages, A also does not have integrity since payloads can be wrong.
+
+Neither service is reliable judging from the standpoint of validity and integrity.
  
 ## Next, consider a server process Y that operates in an asynchronous distributed system and is contacted by a client process X via the above communication service B: 
  
