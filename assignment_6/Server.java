@@ -17,7 +17,7 @@ public class Server {
                 ByteArrayInputStream in = new ByteArrayInputStream(data);
                 ObjectInputStream ois = new ObjectInputStream(in);
 
-                System.out.println("Received " + ((Person) ois.readObject()).toString());
+                System.out.println("Received " + (Person) ois.readObject());
             }
         } catch (Exception e) {
             e.printStackTrace();
