@@ -131,6 +131,7 @@ public class ClientLoop {
 
     public static void main(String[] args) {
         DatagramSocket socket = null;
+        int i = 0;
 
         try {
             socket = new DatagramSocket();
@@ -146,7 +147,7 @@ public class ClientLoop {
                 Person p = new Person(
                         name,
                         cities[ThreadLocalRandom.current().nextInt(0, cities.length)],
-                        (int) Math.round(Math.random() * 1000) + 1000);
+                        i++);
 
                 oos.writeObject(p);
                 byte[] data = os.toByteArray();
@@ -155,7 +156,7 @@ public class ClientLoop {
                 socket.send(packet);
 
                 long delay = Math.round(Math.random() * Integer.parseInt(args[2]));
-                System.out.println("Sent " + name + ", sleeping for: " + delay + " ms");
+                System.out.println("Sent " + name + " number " + i + ", sleeping for: " + delay + " ms");
                 Thread.sleep(delay);
             }
         } catch (Exception e) {
