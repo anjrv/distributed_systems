@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class Server {
+public class SingleServer {
     public static void main(String[] args) {
         DatagramSocket socket = null;
 
@@ -9,7 +9,7 @@ public class Server {
             socket = new DatagramSocket(Integer.parseInt(args[0]));
             byte[] buffer = new byte[1024];
 
-            while (true) {
+            for (;;) {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
 

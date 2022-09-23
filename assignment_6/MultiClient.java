@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ClientLoop {
+public class MultiClient {
     static String[] firstNames = { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank",
             "George",
             "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul",
@@ -26,109 +26,6 @@ public class ClientLoop {
             "Sawyer", "Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan",
             "Tisler" };
 
-    static String[] cities = {
-            "New York",
-            "Los Angeles",
-            "Chicago",
-            "Houston",
-            "Phoenix",
-            "Philadelphia",
-            "San Antonio",
-            "San Diego",
-            "Dallas",
-            "San Jose",
-            "Detroit",
-            "Jacksonville",
-            "Indianapolis",
-            "San Francisco",
-            "Columbus",
-            "Austin",
-            "Memphis",
-            "Fort Worth",
-            "Baltimore",
-            "Charlotte",
-            "El Paso",
-            "Boston",
-            "Seattle",
-            "Washington",
-            "Milwaukee",
-            "Denver",
-            "Louisville/Jefferson County",
-            "Las Vegas",
-            "Nashville-Davidson",
-            "Oklahoma City",
-            "Portland",
-            "Tucson",
-            "Albuquerque",
-            "Atlanta",
-            "Long Beach",
-            "Fresno",
-            "Sacramento",
-            "Mesa",
-            "Kansas City",
-            "Cleveland",
-            "Virginia Beach",
-            "Omaha",
-            "Miami",
-            "Oakland",
-            "Tulsa",
-            "Honolulu",
-            "Minneapolis",
-            "Colorado Springs",
-            "Arlington",
-            "Wichita",
-            "Raleigh",
-            "St. Louis",
-            "Santa Ana",
-            "Anaheim",
-            "Tampa",
-            "Cincinnati",
-            "Pittsburgh",
-            "Bakersfield",
-            "Aurora",
-            "Toledo",
-            "Riverside",
-            "Stockton",
-            "Corpus Christi",
-            "Newark",
-            "Anchorage",
-            "Buffalo",
-            "St. Paul",
-            "Lexington-Fayette",
-            "Plano",
-            "Fort Wayne",
-            "St. Petersburg",
-            "Glendale",
-            "Jersey City",
-            "Lincoln",
-            "Henderson",
-            "Chandler",
-            "Greensboro",
-            "Scottsdale",
-            "Baton Rouge",
-            "Birmingham",
-            "Norfolk",
-            "Madison",
-            "New Orleans",
-            "Chesapeake",
-            "Orlando",
-            "Garland",
-            "Hialeah",
-            "Laredo",
-            "Chula Vista",
-            "Lubbock",
-            "Reno",
-            "Akron",
-            "Durham",
-            "Rochester",
-            "Modesto",
-            "Montgomery",
-            "Fremont",
-            "Shreveport",
-            "Arlington",
-            "Glendale",
-    };
-
     public static void main(String[] args) {
         DatagramSocket socket = null;
         int i = 0;
@@ -146,7 +43,7 @@ public class ClientLoop {
 
                 Person p = new Person(
                         name,
-                        cities[ThreadLocalRandom.current().nextInt(0, cities.length)],
+                        "Loop " + args[3],
                         i++);
 
                 oos.writeObject(p);
@@ -156,7 +53,8 @@ public class ClientLoop {
                 socket.send(packet);
 
                 long delay = Math.round(Math.random() * Integer.parseInt(args[2]));
-                System.out.println("Sent " + name + " number " + i + ", sleeping for: " + delay + " ms");
+                System.out.println(
+                        "Loop " + args[3] + " sent " + name + " number " + i + ", sleeping for: " + delay + " ms");
                 Thread.sleep(delay);
             }
         } catch (Exception e) {
