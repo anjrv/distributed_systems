@@ -22,6 +22,10 @@ async fn main() -> io::Result<()> {
             match socket.try_recv(&mut data[..]) {
                 Ok(n) => {
                     if let Ok(mut parsed) = Parser::new(&data[..n]) {
+                        // if let Ok(read) = parsed.read() {
+                        //     println!("{:#?}", read);
+                        // }
+
                         match parsed.read_as::<Person>() {
                             Ok(p) => {
                                 println!(
