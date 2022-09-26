@@ -23,7 +23,7 @@ async fn main() -> io::Result<()> {
                 Ok(n) => {
                     let parser = Parser::new(&data[..n]);
                     let p: Person = parser.unwrap().read_as().unwrap();
-                    println!("Read Object: {:#?}", p);
+                    println!("Received {} bytes: {}, {}, {}", n, p.name, p.place, p.year);
                 }
                 Err(ref e) if e.kind() == io::ErrorKind::WouldBlock => {}
                 Err(e) => {
