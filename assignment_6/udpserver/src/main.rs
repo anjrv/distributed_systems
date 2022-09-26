@@ -3,7 +3,7 @@ use jaded_derive::FromJava;
 use tokio::io::{self, Interest};
 use tokio::net::UdpSocket;
 
-#[derive(Debug, FromJava)]
+#[derive(FromJava)]
 struct Person {
     name: String,
     place: String,
@@ -21,9 +21,19 @@ async fn main() -> io::Result<()> {
             let mut data = [0; 1024];
             match socket.try_recv(&mut data[..]) {
                 Ok(n) => {
-                    let parser = Parser::new(&data[..n]);
-                    let p: Person = parser.unwrap().read_as().unwrap();
-                    println!("Received {} bytes: {}, {}, {}", n, p.name, p.place, p.year);
+                    if let Ok(mut parsed) = Parser::new(&data[..n]) {
+                        match parsed.read_as::<Person>() {
+                            Ok(p) => {
+                                println!(
+                                    "Received {} bytes: {}, {}, {}",
+                                    n, p.name, p.place, p.year
+                                );
+                            }
+                            Err(_) => {
+                                println!("Couldn't parse to Person");
+                            }
+                        }
+                    }
                 }
                 Err(ref e) if e.kind() == io::ErrorKind::WouldBlock => {}
                 Err(e) => {
