@@ -26,4 +26,4 @@ To start the client run:
 mvn exec:java@client-cli
 ```
 
-The server is currently coded to be localhost and the ports are 3002 for the server and 3003 for the client.
+Both server and client are currently coded to be run on localhost and the ports are 3002 for the server and 3003 for the client.
