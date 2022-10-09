@@ -3,11 +3,11 @@ package hi.distributed_systems.server;
 import hi.distributed_systems.shared.Message;
 
 public class Server {
-     public static void main(String[] args) {
-         Value v = new Value();
-         final int port = 3002;
+    public static void main(String[] args) {
+        Value v = new Value();
+        final int port = 3002;
 
-         try {
+        try {
             CommunicationModuleServer communicationModule = new CommunicationModuleServer(port);
             Message msg = null;
 
@@ -25,8 +25,8 @@ public class Server {
                 msg.setMessageTypeToReply();
                 communicationModule.sendReply(msg);
             }
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.net.*;
 
 public class CommunicationModuleClient {
-    private DatagramSocket socket = null;
     private final InetAddress inetAddress;
     private final int port;
+    private DatagramSocket socket = null;
 
     public CommunicationModuleClient(String serverIp, int serverPort) throws SocketException, UnknownHostException {
         this.socket = new DatagramSocket();

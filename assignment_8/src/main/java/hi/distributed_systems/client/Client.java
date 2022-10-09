@@ -1,8 +1,5 @@
 package hi.distributed_systems.client;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
-
 public class Client {
     public static void main(String[] args) {
         try {
@@ -17,7 +14,7 @@ public class Client {
             proxy.setToZero();
             System.out.println("Value received on client after setting zero is " + proxy.getValue());
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
