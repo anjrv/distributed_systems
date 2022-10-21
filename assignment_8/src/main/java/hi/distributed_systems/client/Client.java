@@ -3,7 +3,7 @@ package hi.distributed_systems.client;
 public class Client {
     public static void main(String[] args) {
         try {
-            CommunicationModuleClient communicationModule = new CommunicationModuleClient("localhost", 3002);
+            CommunicationModuleClient communicationModule = new CommunicationModuleClient("localhost", 3002, 3003);
             ValueProxy proxy = new ValueProxy(communicationModule);
 
             System.out.println("Initial value seen by client is " + proxy.getValue());

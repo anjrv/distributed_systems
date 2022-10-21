@@ -8,12 +8,14 @@ import java.net.*;
 public class CommunicationModuleClient {
     private final InetAddress inetAddress;
     private final int port;
+    private final int server;
     private DatagramSocket socket = null;
 
-    public CommunicationModuleClient(String serverIp, int serverPort) throws SocketException, UnknownHostException {
+    public CommunicationModuleClient(String serverIp, int serverPort, int clientPort) throws SocketException, UnknownHostException {
         this.socket = new DatagramSocket();
         this.inetAddress = InetAddress.getByName(serverIp);
-        this.port = serverPort;
+        this.port = clientPort;
+        this.server = serverPort;
     }
 
     public Object waitForReply() throws IOException, ClassNotFoundException {
@@ -28,11 +30,11 @@ public class CommunicationModuleClient {
         Message msg = new Message();
         msg.setMessageTypeToRequest();
         msg.setMethodId(id);
-        msg.setInetAddress(inetAddress);
-        msg.setPort(port);
+        msg.setInetAddress(this.inetAddress);
+        msg.setPort(this.port);
 
         byte[] data = msg.serializeToByteArray();
-        DatagramPacket packet = new DatagramPacket(data, data.length, inetAddress, port);
+        DatagramPacket packet = new DatagramPacket(data, data.length, this.inetAddress, this.server);
         socket.send(packet);
 
         return waitForReply();
