@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.v10.grpc;
+
+message Empty {}
+
+message CounterCountResponse { int32 count = 1; }
+
+message CounterPrintResponse { string response = 1; }
+
+service CounterService {
+  rpc incrementCounter(Empty) returns (Empty);
+  rpc getCount(Empty) returns (CounterCountResponse);
+  rpc printCount(Empty) returns (CounterPrintResponse);
+}
