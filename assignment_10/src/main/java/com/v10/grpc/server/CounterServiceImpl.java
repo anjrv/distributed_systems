@@ -12,7 +12,7 @@ public class CounterServiceImpl extends CounterServiceImplBase {
 
     @Override
     public void incrementCounter(Empty req, StreamObserver<Empty> res) {
-        count++;
+        System.out.println("Increment on count " + this.count++);
         Empty e = Empty.newBuilder().build();
         res.onNext(e);
         res.onCompleted();
@@ -20,6 +20,7 @@ public class CounterServiceImpl extends CounterServiceImplBase {
 
     @Override
     public void getCount(Empty req, StreamObserver<CounterCountResponse> res) {
+        System.out.println("Get on count " + this.count);
         CounterCountResponse c = CounterCountResponse.newBuilder().setCount(this.count).build();
         res.onNext(c);
         res.onCompleted();
