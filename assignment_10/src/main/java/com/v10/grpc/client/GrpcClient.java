@@ -16,10 +16,8 @@ public class GrpcClient {
 
         CounterServiceGrpc.CounterServiceBlockingStub stub = CounterServiceGrpc.newBlockingStub(channel);
 
-        CounterPrintResponse res1 = stub.printCount(Empty.newBuilder()
-                .build());
-
-        System.out.println(res1);
+        CounterCountResponse res1 = stub.getCount(Empty.newBuilder().build());
+        System.out.println("Getting initial count: " + res1.getCount());
 
         System.out.println("Incrementing...");
         stub.incrementCounter(Empty.newBuilder()
